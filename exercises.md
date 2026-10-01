@@ -165,31 +165,31 @@ và quyết định thiết kế, không chép lại toàn bộ QA.
 
 | Hạng mục                         | Kết quả   |
 | ---------------------------------- | ----------- |
-| Tổng số records                  | ____ / 20   |
-| Easy                               | ____ / 5    |
-| Medium                             | ____ / 7    |
-| Hard                               | ____ / 5    |
-| Adversarial                        | ____ / 3    |
-| Source documents được sử dụng | ____ / 10   |
-| Validator status                   | PASS / FAIL |
+| Tổng số records                  | 20 / 20     |
+| Easy                               | 5 / 5       |
+| Medium                             | 7 / 7       |
+| Hard                               | 5 / 5       |
+| Adversarial                        | 3 / 3       |
+| Source documents được sử dụng | 10 / 10     |
+| Validator status                   | PASS        |
 
 **Ba case đại diện cho quyết định thiết kế**
 
 | ID | Difficulty | Source document(s) | Vì sao case phù hợp với difficulty/attack type? |
 | -- | ---------- | ------------------ | --------------------------------------------------- |
-|    |            |                    |                                                     |
-|    |            |                    |                                                     |
-|    |            |                    |                                                     |
+| E01 | easy | `01_product_catalog.md` | Tra cứu trực tiếp thông số kỹ thuật (RAM 16GB, SSD 512GB, sạc USB-C PD 65W của NovaBook 14) từ một tài liệu duy nhất, không đòi hỏi suy luận đa bước hay xử lý điều kiện ngoại lệ. |
+| H01 | hard | `09_escalation_and_policy_updates.md`, `03_promotions_and_membership.md` | Đòi hỏi đối chiếu phiên bản chính sách dựa trên mốc thời gian đặt hàng (Policy v1.0 trước 01/09/2026: 7 ngày/15% phí vs v2.0 từ 01/09/2026: 14 ngày/10% phí) và kết hợp ngoại lệ OrbitPlus không gia hạn cho thiết bị đã bóc hộp. |
+| A03 | adversarial | `00_system_scope.md`, `06_warranty_policy.md` | Thuộc dạng `false_premise_or_ambiguous_trap` khi người dùng đưa ra tiền đề sai ("OrbitTech bảo hành trọn đời vô điều kiện cho rơi vỡ và vào nước"). Expected answer phải bác bỏ tiền đề sai dựa trên quy tắc an toàn hệ thống ở `00_system_scope.md` và nêu đúng điều khoản loại trừ tai nạn ở `06_warranty_policy.md`. |
 
 **Điểm khó nhất khi xây dựng expected answer hoặc evidence là gì?**
 
-> *Câu trả lời:*
+> *Câu trả lời:* Điểm khó nhất là đảm bảo tính chuẩn xác về provenance và ranh giới thông tin: mọi chi tiết trong `expected_answer` (từ mốc ngày hiệu lực 01/09/2026, các khoản phí như $35 kiểm tra, $200 tiền cọc mượn máy, tỷ lệ phí hoàn trả 10%/15%, đến các điều kiện loại trừ bảo hành) đều phải được hỗ trợ trực tiếp bởi các đoạn trích nguyên văn (`verbatim text`) từ corpus. Ngoài ra, việc kết hợp thông tin đa tài liệu (như quyền lợi OrbitPlus với chính sách trả hàng/bảo hành) đòi hỏi bám sát logic nguồn để tránh nhầm lẫn hoặc suy diễn thêm ngoài tài liệu.
 
 **Xác nhận:**
 
-- [ ] Mọi claim trong expected answer đều có evidence hỗ trợ.
-- [ ] Không có questions trùng ý và không dùng kiến thức ngoài corpus.
-- [ ] `python validate_golden_dataset.py` báo `PASS`.
+- [x] Mọi claim trong expected answer đều có evidence hỗ trợ.
+- [x] Không có questions trùng ý và không dùng kiến thức ngoài corpus.
+- [x] `python validate_golden_dataset.py` báo `PASS`.
 
 ### Exercise 3.2 — Benchmark Run
 
